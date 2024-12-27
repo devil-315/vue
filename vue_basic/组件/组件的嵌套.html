@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>组件的嵌套</title>
+</head>
+<body>
+    <div id="root">
+        <!-- <app></app> -->
+    </div>
+</body>
+<script type="text/javascript">
+    //第一步： 创建student组件
+    const student = Vue.extend({
+    template:`
+        <div>
+            <h2>学生名称：{{name}}</h2>
+            <h2>学生地址：{{age}}</h2>
+        </div>
+    `,
+    data(){
+        return{
+            name:'devil',
+            age:18
+        }
+    },
+   })
+
+    //第一步： 创建school组件
+   const school = Vue.extend({
+    template:`
+        <div>
+            <h2>学校名称：{{name}}</h2>
+            <h2>学校地址：{{address}}</h2>
+            <student></student>
+        </div>
+    `,
+    data(){
+        return{
+            name:'清华',
+            address:'北京'
+        }
+    },
+    //注册组件（局部）
+    components:{
+        student
+    }
+   })
+
+    //定义一个hello组件
+    const hello = Vue.extend({
+    template:`
+        <h1>{{msg}}</h1>
+    `,
+    data(){
+        return {msg:'大魔王牛逼'}
+    }
+   })
+
+   //定义app组件
+   const app = Vue.extend({
+    template:`
+        <div>
+            <school></school>
+            <hello></hello>
+        </div>
+    `,
+    components:{
+        //简写
+        school,
+        hello
+    }
+   })
+   //创建vm
+   new Vue({
+    template:`<app></app>`,
+    el:'#root',
+    //注册组件（局部）
+    components:{
+        //简写
+        app
+    }
+   })
+</script>
+</html>

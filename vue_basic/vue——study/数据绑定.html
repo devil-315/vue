@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据绑定</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+     <div id="root">
+        单向数据绑定：<input type="text" v-bind:value="name">
+        <hr/>
+        双向向数据绑定：<input type="text" v-model="name">
+        <hr/>
+        <!-- 如下代码是错误的，因为v-model只能应用在表单类元素（输入类元素）上 -->
+        双向向数据绑定：<h2 v-model:x="name">你好</h2>
+     </div>
+</body>
+<script type="text/javascript">
+    //创建vue 实例
+    new Vue({
+        // el :document.getElementById('root')
+        el:'#root', //el 用于指定当前vue 实例为哪个容器服务，值通常为css选择器字符串
+        data: {//data中用于存储数据，数据供el所指定的容器去使用，值我们暂时先写成一个对象
+            name: 'devil'
+        }
+    })
+ </script>
+</html>

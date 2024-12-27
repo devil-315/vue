@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>自定义指令</title>
+</head>
+<body>
+    <div id="root">
+        <h2>当前的n值是：<span v-text="n"></span></h2>
+        <button @click="n++">点我n+1</button>
+        <input type="text" v-fbind:value="n">
+    </div>
+    <div id="root2">
+        <button @click="x++">点我x+1</button>
+        <input type="text" v-fbind2:value="x">
+    </div>
+</body>
+<script type="text/javascript">
+    //定义全局指令
+    Vue.directive('fbind2',{
+        //指令与元素成功绑定时（一上来）
+        bind(element,binding){
+            element.value = binding.value
+            },
+        //指令所在元素被插入页面时
+        insert(element,binding){
+                 element.focus()
+            },
+        //指令所在模版被重新解析时
+        update(element,binding){
+                element.value = binding.value
+                element.focus()
+            }           
+    })
+    new Vue({
+        el:'#root',
+        data:{
+            n:1
+        },
+        directives:{
+            //自定义fbind绑定
+            //换成对象写法 对比函数简写方式其实只是多了 inserted
+            fbind:{
+                //指令与元素成功绑定时（一上来）
+                bind(element,binding){
+                    element.value = binding.value
+                },
+                //指令所在元素被插入页面时
+                insert(element,binding){
+                    element.focus()
+                },
+                //指令所在模版被重新解析时
+                update(element,binding){
+                    element.value = binding.value
+                    element.focus()
+                }           
+            }
+        }
+    })
+
+    new Vue({
+        el:'#root2',
+        data:{
+            x:1
+        }
+    })
+</script>
+</html>

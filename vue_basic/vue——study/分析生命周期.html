@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>生命周期</title>
+</head>
+<body>
+    <div id="root">
+        <h2 v-text="n"></h2>
+        <h2 >当前的n值是：{{n}}</h2>
+        <button @click="add">点我n+1</button>
+        <button @click="bye">点我销毁vue</button>
+    </div>
+</body>
+<script type="text/javascript">
+    new Vue({
+        el:'#root',
+        //template模版字符串只能有一个根结点
+        // template:`
+        //      <div>
+        //         <h1>当前的n值是{{ n }}</h1>
+        //         <button @click="add">点我+1</button>
+        //     </div>`,
+        //注意template是不能作为根标签来使用的，不能去骗vue，可以用fragment(vue3新加，模仿react)
+        data:{
+            n:1
+        },
+        methods: {
+            add(){
+                console.log('add');
+                this.n++
+            },
+            bye(){
+                //实例销毁后调用。该钩子被调用后，对应 Vue 实例的所有指令都被解绑，所有的(自定义)事件监听器被移除，所有的子实例也都被销毁。
+                console.log('bye');
+                this.$destroy();
+            }
+        },
+        watch:{
+            n(){
+                console.log('n变了');
+            }
+        },
+        beforeCreate() {
+            console.log('beforeCreate');
+            //console.log(this);
+            //debugger;
+        },
+        created() {
+            console.log('created');
+            // console.log(this);
+            // debugger;
+        },
+        beforeMount() {
+            console.log('beforeMount');
+            // console.log(this);
+            // debugger;
+        },
+        mounted() {
+            console.log('mounted');
+        },
+        beforeUpdate() {
+            console.log('beforeUpdate');
+        },
+        updated() {
+            console.log('updated');
+        },
+        beforeDestroy() {
+            //记住一旦到了beforeDestroy或者destroyed钩子，即使你拿到数据想要更新它也不会走更新的路了(beforeUpdate,updated)
+            console.log('beforeDestroy');
+            this.add()//记住一旦到了beforeDestroy或者destroyed钩子，即使你拿到数据想要更新它也不会走更新的路了(beforeUpdate,updated)         
+        },
+         //destroyed钩子几乎不用
+        destroyed() {
+            console.log('destroyed');
+        },
+    })
+</script>
+</html>

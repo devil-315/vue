@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>vue.set的使用</title>
+</head>
+<body>
+    <!-- 容器 -->
+     <div id="root">
+        <h1>学校信息</h1>
+        <h2>学习名称：{{name}}</h2>
+        <h2>学校地址：{{address}}</h2>
+        <hr/>
+        <h1>学生信息</h1>
+        <button @click="add">添加一个性别属性，默认是男</button>
+        <h2>学生姓名：{{student.name}}</h2>
+        <h2 v-if="student.sex">学生性别：{{student.sex}}</h2>
+        <h2>学生年龄：真实{{student.age.reAge}}，对外{{student.age.sAge}}</h2>
+        <h2>朋友们</h2>
+        <ul>
+            <li v-for="(f,index) in student.friends" :key="index">
+                {{f.name}}--{{f.age}}
+            </li>
+        </ul>
+     </div>
+</body>
+<script type="text/javascript">
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            name:'清华',
+            address:'北京',
+            student:{
+                name:'devil',
+                age:{
+                    reAge:'38',
+                    sAge:'18'
+                },
+                friends:[
+                    {name:'jery',age:18},
+                    {name:'tony',age:36}
+                ]
+            }
+        },
+        methods: {
+            add(){
+                //这里this === vm
+                //利用vue.set() 或者vm.$set() api 能够添加的属性，且变为响应式属性
+                //注意()里的对象不能是 Vue 实例，或者 Vue 实例的根数据对象。
+
+                //方法一
+                //Vue.set(this.student,'sex','男')
+
+                //方法二
+                this.$set(this.student,'sex','男')
+            }
+        },
+    })
+
+    
+</script>
+</html>

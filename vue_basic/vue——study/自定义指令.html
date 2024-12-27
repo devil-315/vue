@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>自定义指令</title>
+</head>
+<body>
+    <div id="root">
+        <h2>当前的n值是：<span v-text="n"></span></h2>
+        <h2>放大10倍的n值是：<span v-big="n"></span></h2>
+        <button @click="n++">点我n+1</button>
+    </div>
+</body>
+<script type="text/javascript">
+    new Vue({
+        el:'#root',
+        data:{
+            n:1
+        },
+        directives:{
+            //两种写法:1.对象(key-value) 2.函数
+            
+            // 'big-number'(el,binding){
+            //     console.log('big被调用啦！')
+            //     //收到两个参数，第一个参数代表真实dom元素，第二个参数是绑定对象，关注该绑定对象中的value属性
+            //     // console.log(el,binding);
+            //     //原生dom的操作
+            //     el.innerText = binding.value * 10;
+            // },
+
+            //big函数何时会被调用？
+            //1.指令与元素成功绑定时（一上来）  （但注意此时dom元素还没有成功的被弄到页面上去)
+            //2.指令所在的模板被重新解析时
+            //收到两个参数，第一个参数代表真实dom元素，第二个参数是绑定对象，关注该绑定对象中的value属性
+            big(element,binding){
+                console.log(this); //注意此处this===window vue实例对象此时'不管'你写在指令里面的函数了
+                //原生dom的操作
+                element.innerText = binding.value * 10
+                console.log(element,binding.value);              
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>初始vue</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script>
+        Vue.config.productionTip = false //阻止 vue 在启动时生成生产提示。
+    </script>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+     <div id="root">
+         <!--TODO {{}} 插值语法， 用来解析标签体的内容 （js表达式） -->
+        <h1>hello,{{name}},{{1+1}}</h1>
+     </div>
+
+     <script type="text/javascript">
+        //创建vue 实例
+        new Vue({
+            // el :document.getElementById('root')
+            el:'#root', //el 用于指定当前vue 实例为哪个容器服务，值通常为css选择器字符串
+            data: {//data中用于存储数据，数据供el所指定的容器去使用，值我们暂时先写成一个对象
+                name: '大魔王'
+            }
+        })
+     </script>
+</body>
+</html>

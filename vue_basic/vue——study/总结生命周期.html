@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>生命周期</title>
+</head>
+<body>
+    <div id="root">
+        <h2 :style="{opacity}">欢迎学习Vue</h2>
+        <button @click="opacity=1">透明度设置为1</button>
+        <button @click="stop">点我停止变换</button>
+    </div>
+</body>
+<script type="text/javascript">
+    new Vue({
+        el:'#root',
+        data:{
+            opacity:1
+        },
+        methods: {
+            stop(){
+                //只是清除了定时器，响应式仍然存在
+                //clearInterval(this.timer)
+                 //暴力杀
+                this.$destroy()
+            }
+        },
+        mounted() {
+            //箭头函数没有this会从外部作用域寻找 mounted是由vue管理的函数，所以该函数中的this是vm(vue实例对象)
+            console.log('mounted',this);
+            this.timer = setInterval(() => {     
+                    console.log('setInterval');               
+                    this.opacity -= 0.01
+                    if( this.opacity <= 0 ) this.opacity = 1
+                },16)
+        },
+        beforeDestroy() {
+            console.log('vm即将销毁');
+            clearInterval(this.timer)
+        },
+    })
+</script>
+</html>

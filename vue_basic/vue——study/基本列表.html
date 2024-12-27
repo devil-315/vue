@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>基本列表</title>
+</head>
+<body>
+    <!-- 容器 -->
+     <div id="root">
+        <!-- 遍历数组 -->
+        <h2>人员列表 （用的最多）（遍历数组）</h2>
+        <ul>
+            <!-- <li v-for="p in persons" :key="p.id"> -->
+            <!--v-for(for in 或者 for of)可以接受到两个参数,一个是当前的元素，另一个是当前元素的索引 类似于下面的person,index-->
+            <li v-for="(p,index) of persons" :key="index ">
+                {{p.name}}-{{p.age}}
+            </li>
+        </ul>
+
+        <!-- 遍历对象 -->
+         <h2>汽车信息 （遍历对象）</h2>
+         <ul>
+             <!--注意遍历对象的时候先收到的是每一项的属性的value，第二项是对应的键名:key-->
+            <li v-for="(value,key) of cars" :key="key">
+            {{key}}-{{value}}
+            </li>
+         </ul>
+
+         <!-- 遍历字符串 -->
+         <h2>遍历字符串（用的少）</h2>
+         <ul>
+            <!--注意遍历字符串的时候先收到的是字符串中每一个字符，第二项是其对应的索引index-->
+            <li v-for="(char,index) of str" :key="index">
+            {{index}}-{{char}}
+            </li>
+         </ul>
+
+        <!--遍历指定次数-->
+        <h2>遍历指定次数（用的少）</h2>
+        <!--注意遍历指定次数的时候先收到的是number(例如5，则number是1，2，3，4，5)，第二项是对应index(从0开始计数,则是0,1,2,3,4)-->
+        <ul >
+            <li v-for="(num, index) in 5" :key="index">
+                {{ index }} -- {{ num }}
+            </li>
+        </ul>
+     </div>
+</body>
+<script type="text/javascript">
+    new Vue({
+        el:'#root',
+        data:{
+            persons:[
+                {id:'001',name:'张三',age:18},
+                {id:'002',name:'李四',age:19},
+                {id:'003',name:'王五',age:20}
+            ],
+            cars:{
+                name:'奥迪A8',
+                price:'70w',
+                color:'black'
+            },
+            str:'hello'
+        }
+    })
+</script>
+</html>

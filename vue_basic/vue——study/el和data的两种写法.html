@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据绑定</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 准备一个容器 -->
+     <div id="root">
+        <h1>你好，{{name}}</h1>
+     </div>
+</body>
+<script type="text/javascript">
+    //el的两种写法
+    /*const v = new Vue({
+        //el的第一种写法
+        //el:'#root', 
+        data: {
+            name: 'devil'
+        }
+    })
+    console.log(v);
+
+    //el的第二种写法
+    v.$mount('#root')*/
+    
+    //data的两种写法
+    new Vue({
+        el:'#root',
+        //data的第一种写法：对象式
+        /*data{
+        name:'devil'
+        }*/
+
+        //data的第二种写法：函数式  以后必须用函数式
+        data:function(){  //:function 可以省略不写
+            console.log('@@@',this); //此处的this是vue实例对象
+            
+            return{
+                name:'devil'
+            }
+        }
+    })
+ </script>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>VueComponent</title>
+</head>
+<body>
+    <div id="root">
+        <school></school>
+        <hello></hello>
+    </div>
+</body>
+<script type="text/javascript">
+    //第一步： 创建school组件
+   const school = Vue.extend({
+    template:`
+        <div>
+            <h2>学校名称：{{name}}</h2>
+            <h2>学校地址：{{address}}</h2>
+            <button @click="showName">点我提示学校名</button>
+        </div>
+    `,
+    data(){
+        return{
+            name:'清华',
+            address:'北京'
+        }
+    },
+    methods: {
+        showName(){
+            console.log('showName',this);
+            //alert(this.name)
+    }
+    },
+   })
+
+   //定义hello组件
+   const hello = Vue.extend({
+    template:`<h2>{{msg}}</h2>`,
+    data(){
+        return {
+            msg:'hello'
+        }
+    }
+   })
+
+   console.log('@',school);//school组件本质是一个名为VueComponent的构造函数，且不是程序员定义的，是Vue.extend生成的。
+   console.log('#',hello);
+   //验证school与hello并不是同一个VueComponent构造函数
+   console.log(school == hello);//false
+
+   //创建vm
+   const vm = new Vue({
+    el:'#root',
+    //注册组件（局部）
+    components:{
+        //简写
+        school,
+        hello
+    }
+   })
+</script>
+</html>

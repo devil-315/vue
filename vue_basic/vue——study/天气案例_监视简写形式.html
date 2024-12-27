@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>天气案例_监视_简写</title>
+</head>
+<body>
+    <!-- 容器 -->
+     <div id="root">
+        <h2>今天天气{{info}}</h2>
+        <button @click="changeWeather">切换天气</button>
+     </div>
+</body>
+<script type="text/javascript">
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            isHot:true,
+        },
+        computed:{
+             //计算属性
+            info(){
+                return this.isHot ? '炎热' : '凉爽'
+            }
+        },
+        methods: {
+            changeWeather(){
+                this.isHot = !this.isHot
+            }
+        },
+        watch:{
+            //正常写法
+            // isHot:{
+            //     // immediate:true, 
+            //     // deep:true,//深度监视
+            //     handler(newValue,oldValue){
+            //         console.log('isHot被修改了',newValue,oldValue);                    
+            //     }
+            // },
+
+            //简写   方法一
+            //简写的前提watch的属性不需要immediate和deep属性的时候
+            isHot(newValue,oldValue){
+                console.log('isHot被修改了',newValue,oldValue);  
+            }
+        }
+    })
+
+    //正常写法
+    // vm.$watch('isHot',{
+    //          immediate:true, 
+    //          deep:true,//深度监视
+    //         handler(newValue,oldValue){
+    //             console.log('isHot被修改了',newValue,oldValue);                    
+    //         }
+    // })
+
+    //方法二
+    //简写   (代价就是不能配置其他配置项deep immediate) 
+    wm.$watch("isHot",function(newValue,oldValue){
+        console.log('isHot被修改了',newValue,oldValue);
+    })
+</script>
+</html>
